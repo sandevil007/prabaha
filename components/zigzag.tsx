@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
-import ExpertTrainingServices from '@/images/expert-training-services.jpg'
-import IndivdualisedTrainingPlan from '@/images/individualised-training-plan.jpg'
-import ScienceBasedTraining from '@/images/science-based-training.jpg'
+import ExpertTrainingServices from './../images/expert-training-services.jpg'
+import IndivdualisedTrainingPlan from './../images/individualised-training-plan.jpg'
+import ScienceBasedTraining from './../images/science-based-training.jpg'
 
 export default function Zigzag() {
   return (

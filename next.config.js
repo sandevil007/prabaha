@@ -18,9 +18,7 @@ const env = {
     NEXT_PUBLIC_EMAILJS_USER_ID
 };
 
-const output = { output: 'export' };
-
-module.export = withPlugins([
+module.exports = withPlugins([
     [optimizedImages, {
         mozjpeg: {
             quality: 80,
@@ -33,8 +31,10 @@ module.export = withPlugins([
     }],
     {
         env,
-        output,
         basePath,
         assetPrefix
     },
+    {
+        output: 'export'
+    }
 ]);

@@ -12,14 +12,13 @@ export default function DefaultLayout({
   children,
 }: {
   children: React.ReactNode
-}) {  
+}) {
 
   useEffect(() => {
     AOS.init({
-      once: true,
-      disable: 'phone',
-      duration: 600,
-      easing: 'ease-out-sine',
+      once: false,
+      duration: 250,
+      easing: 'ease-in',
     })
   })
 

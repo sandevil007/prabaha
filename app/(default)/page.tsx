@@ -1,13 +1,13 @@
 export const metadata = {
-  title: 'Home - Open PRO',
-  description: 'Page description',
+  title: 'Home - Prabaha',
+  description: 'Nurturing the flow of Canine Potential',
 }
 
-import Hero from '@/components/hero'
 import Features from '@/components/features'
+import Hero from '@/components/hero'
 import Newsletter from '@/components/newsletter'
-import Zigzag from '@/components/zigzag'
 import Testimonials from '@/components/testimonials'
+import Zigzag from '@/components/zigzag'
 
 export default function Home() {
   return (

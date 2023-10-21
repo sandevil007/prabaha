@@ -18,7 +18,7 @@ const env = {
     NEXT_PUBLIC_EMAILJS_USER_ID
 };
 
-const output = 'export';
+const output = { output: 'export' };
 
 module.export = withPlugins([
     [optimizedImages, {

@@ -41,16 +41,16 @@ export default function Newsletter() {
             </div>
 
             {/* CTA form */}
-            <form className="w-full lg:w-1/2" onSubmit={sendEmail}>
+            {!isSubscribed && <form className="w-full lg:w-1/2" onSubmit={sendEmail}>
               <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:max-w-none">
                 <input type="email" name="from_email" className="w-full appearance-none bg-yellow-400 border border-green-800 focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-green-800 placeholder-green-800" placeholder="Your best email…" aria-label="Your best email…" />
                 <input type="submit" value="Subscribe" className="btn text-green-800 bg-yellow-400 border border-green-800 hover:bg-white shadow" />
               </div>
 
               {/* Success message */}
-              {isSubscribed && <h3 className="h3 text-green-800 mb-2">Thanks for subscribing!</h3>}
-            </form>
 
+            </form>}
+            {isSubscribed && <h3 className="h3 text-green-800 mb-2">Thanks for subscribing!</h3>}
           </div>
 
         </div>

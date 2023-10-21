@@ -5,7 +5,8 @@ export default function Footer() {
     <footer>
       <div className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
+          <div className="text-gray-400 text-sm mr-4">Email: sayantda@gmail.com</div>
+          <div className="text-gray-400 text-sm mr-4">Phone: +91-9930334723</div>
           {/* Bottom area */}
           <div className="md:flex md:items-center md:justify-between">
 

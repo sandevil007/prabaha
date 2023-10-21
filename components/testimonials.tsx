@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import BlankFemaleAvatar from '@/public/images/blank-female-avatar.png'
-import BlankMaleAvatar from '@/public/images/blank-male-avatar.png'
+import BlankFemaleAvatar from '@/images/blank-female-avatar.png'
+import BlankMaleAvatar from '@/images/blank-male-avatar.png'
 
 export default function Testimonials() {
   return (

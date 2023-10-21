@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import PrabahaLogo from '@/public/images/Prabaha-yellow-green-logo-16-9.png'
+import PrabahaLogo from '@/images/Prabaha-yellow-green-logo-16-9.png'
 
 export default function Hero() {
   return (

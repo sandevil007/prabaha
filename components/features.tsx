@@ -1,9 +1,9 @@
-import AdvancedTraining from '@/public/images/advanced.png'
-import BasicTraining from '@/public/images/basic.png'
-import Daycare from '@/public/images/daycare.png'
-import GroupClasses from '@/public/images/group-classes.png'
-import HomeTraining from '@/public/images/in-home.png'
-import PuppyTraining from '@/public/images/puppy.png'
+import AdvancedTraining from '@/images/advanced.png'
+import BasicTraining from '@/images/basic.png'
+import Daycare from '@/images/daycare.png'
+import GroupClasses from '@/images/group-classes.png'
+import HomeTraining from '@/images/in-home.png'
+import PuppyTraining from '@/images/puppy.png'
 import Image from 'next/image'
 
 export default function Features() {

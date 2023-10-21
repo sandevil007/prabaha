@@ -5,11 +5,11 @@ import { useState } from 'react';
 
 export default function Newsletter() {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  function sendEmail(e: any) {
+  const sendEmail = (e: any) => {
     e.preventDefault();
     emailjs.sendForm(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_NAME!, process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_NAME!, e.target, process.env.NEXT_PUBLIC_EMAILJS_USER_ID).then(() => {
       setIsSubscribed(true);
-    });;
+    });
   }
 
   return (
@@ -17,7 +17,7 @@ export default function Newsletter() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* CTA box */}
-        <div className="relative bg-yellow-400 py-10 px-8 md:py-16 md:px-12" data-aos="fade-up">
+        <div className="relative bg-yellow-400 py-10 px-8 md:py-16 md:px-12" data-aos="fade-up" style={{ height: 400 }}>
 
           {/* Background illustration */}
           <div className="absolute right-0 top-0 -ml-40 pointer-events-none" aria-hidden="true">
@@ -32,7 +32,7 @@ export default function Newsletter() {
             </svg>
           </div>
 
-          <div className="relative flex flex-col lg:flex-row justify-between items-center">
+          <div className="relative flex flex-col lg:flex-row justify-between items-center pt-20">
 
             {/* CTA content */}
             <div className="mb-6 lg:mr-16 lg:mb-0 text-center lg:text-left lg:w-1/2">

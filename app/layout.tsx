@@ -1,8 +1,7 @@
-import './css/style.css'
-
-import { Architects_Daughter, Inter } from 'next/font/google'
-
-import Header from '@/components/ui/header'
+import Header from '@/components/ui/header';
+import { Metadata } from 'next';
+import { Architects_Daughter, Inter } from 'next/font/google';
+import './css/style.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,9 +16,24 @@ const architects_daughter = Architects_Daughter({
   display: 'swap'
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Prabaha',
-  description: 'Nurturing the flow of canine potential',
+  description: 'Nurturing the flow of Canine Potential',
+  metadataBase: new URL('https://prabaha.in'),
+  applicationName: 'Prabaha',
+  authors: [{ name: 'Sayantan Das' }],
+  keywords: ['Prabaha', 'Dog training', 'Dog boarding', 'Obedience training', 'Puppy training', 'Dog trainer'],
+  category: 'Dog Training',
+  icons: '/favicon.ico',
+  openGraph: {
+    title: 'Prabaha',
+    description: 'Nurturing the flow of Canine Potential',
+    emails: 'sayantan.das@prabaha.in',
+    phoneNumbers: '+91-9930334723',
+    siteName: 'Prabaha',
+    url: new URL('https://prabaha.in'),
+    countryName: 'India'
+  }
 }
 
 export default function RootLayout({

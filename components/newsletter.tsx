@@ -1,27 +1,62 @@
 'use client';
 
 import emailjs from 'emailjs-com';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Newsletter() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const sendEmail = (e: any) => {
-    e.preventDefault();
-    emailjs.sendForm(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_NAME!, process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_NAME!, e.target, process.env.NEXT_PUBLIC_EMAILJS_USER_ID).then(() => {
-      setIsSubscribed(true);
-    });
-  }
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+
+    // Execute reCAPTCHA when the form is submitted
+    if (recaptchaRef.current) {
+      recaptchaRef.current.execute();
+    }
+  };
+
+  const onReCAPTCHAChange = (captchaValue: any) => {
+    // If the value is null, the reCAPTCHA has expired or failed
+    if (!captchaValue) return;
+
+    // Make sure that the formRef.current contains the form node
+    if (formRef.current) {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_NAME!;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_NAME!;
+      const userId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID!;
+
+      emailjs.sendForm(serviceId, templateId, formRef.current, userId)
+        .then(() => {
+          setIsSubscribed(true);
+        })
+        .catch((error) => {
+          // Handle any errors here
+        });
+
+      // After sending the form, reset the reCAPTCHA
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+    }
+  };
 
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-12 md:py-20 border-t border-gray-800">
 
+          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+            <h2 className="h2 mb-4">Get in Touch</h2>
+            <div className="inline-flex text-sm font-semibold py-1 px-3 m-2 text-green-800 bg-yellow-400 rounded-full mb-4">We're Here to Help!</div>
+          </div>
           {/* CTA box */}
-          <div className="relative bg-yellow-400 py-10 px-8 md:py-16 md:px-12" data-aos="fade-up" style={{ height: 400 }}>
+          <div className="relative bg-yellow-400 py-10 px-8 md:py-16 md:px-12" data-aos="fade-up">
 
             {/* Background illustration */}
-            <div className="absolute right-0 top-0 -ml-40 pointer-events-none" aria-hidden="true">
+            <div className="absolute right-0 top-0 -ml-20 pointer-events-none" aria-hidden="true">
               <svg width="238" height="110" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="illustration-04" x1="369.483" y1="-84.633" x2="139.954" y2="-199.798" gradientUnits="userSpaceOnUse">
@@ -33,30 +68,89 @@ export default function Newsletter() {
               </svg>
             </div>
 
-            <div className="relative flex flex-col lg:flex-row justify-between items-center pt-20">
 
-              {/* CTA content */}
-              <div className="mb-6 lg:mr-16 lg:mb-0 text-center lg:text-left lg:w-1/2">
-                <h3 className="h3 text-green-800 mb-2">Stay in the loop</h3>
-                <p className="text-green-800 text-lg">Join our newsletter to get updates before anyone else.</p>
+
+            {/* CTA form */}
+            {!isSubscribed &&
+              <div className="relative flex flex-col lg:flex-row justify-between items-center">
+                <form className="w-full" onSubmit={handleSubmit} ref={formRef}>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    size="invisible"
+                    hidden={true}
+                    sitekey="6LcOb_soAAAAABYSbBoeoTmQBWeCVdQkKflpyc1k"
+                    onChange={onReCAPTCHAChange}
+                  />
+                  <div className="flex flex-col space-y-4">
+                    <input
+                      type="text"
+                      name="user_name"
+                      placeholder="Jane Doe, Guardian of the Pack"
+                      required
+                      className="w-full appearance-none bg-green-800 border border-black focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-yellow-400"
+                    />
+                    <div className="flex space-x-4">
+                      <input
+                        type="email"
+                        name="user_email"
+                        placeholder="jane.doe@pawmail.com"
+                        required
+                        className="w-1/2 appearance-none bg-green-800 border border-black focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-yellow-400"
+                      />
+                      <input
+                        type="tel"
+                        name="user_phone"
+                        placeholder="(+91) 987654-WOOF"
+                        required
+                        className="w-1/2 appearance-none bg-green-800 border border-black focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-yellow-400"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      name="subject"
+                      placeholder="What's your pup's tale?"
+                      required
+                      className="w-full appearance-none bg-green-800 border border-black focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-yellow-400"
+                    />
+                    <textarea
+                      name="message"
+                      placeholder="Share your bark! How can we help your furry friend?"
+                      rows={4}
+                      required
+                      className="w-full appearance-none bg-green-800 border border-black focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-yellow-400"
+                    />
+                    <div className="flex justify-center pt-6">
+                      <button
+                        type="submit"
+                        className="w-1/2 btn text-green-800 bg-yellow-400 border border-black hover:bg-black hover:text-white shadow"
+                      >
+                        Unleash Your Message!
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
-
-              {/* CTA form */}
-              {!isSubscribed && <form className="w-full lg:w-1/2" onSubmit={sendEmail}>
-                <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:max-w-none">
-                  <input type="email" name="from_email" className="w-full appearance-none bg-yellow-400 border border-green-800 focus:border-yellow-400 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-green-800 placeholder-green-800" placeholder="Your best email…" aria-label="Your best email…" />
-                  <input type="submit" value="Subscribe" className="btn text-green-800 bg-yellow-400 border border-green-800 hover:bg-white shadow" />
-                </div>
-
-                {/* Success message */}
-
-              </form>}
-              {isSubscribed && <h3 className="h3 text-green-800 mb-2">Thanks for subscribing!</h3>}
-            </div>
-
+            }
+            {isSubscribed &&
+              <div className="justify-between items-center">
+                <h3 className="h3 text-center text-green-800 mb-2">
+                  Paws for your message!
+                </h3>
+                <p className="text-center text-green-800 mb-2">
+                  We've fetched your details and are wagging our tails in excitement to get back to you.
+                </p>
+                <p className="text-center text-green-800 mb-2">
+                  Give us 24 hours to leap over fences, and we'll bound back with a reply.
+                </p>
+                <p className="text-center text-green-800 mb-2">
+                  Thanks for letting us be a part of your pack's journey!
+                </p>
+              </div>
+            }
           </div>
 
         </div>
+
       </div>
     </section>
   )
